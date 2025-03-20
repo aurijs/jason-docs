@@ -16,7 +16,7 @@ export default defineConfig({
       lastUpdated: true,
       credits: true,
       editLink: {
-        baseUrl: "https://github.com/aurijs/jason-docs/edit/main/docs",
+        baseUrl: "https://github.com/aurijs/jason-docs/edit/main",
       },
       social: {
         github: "https://github.com/aurijs/jason",
