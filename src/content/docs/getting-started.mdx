@@ -1,0 +1,99 @@
+---
+title: Getting Started
+description: Get Started using JasonDB.
+---
+
+import { Tabs, TabItem, Steps } from "@astrojs/starlight/components";
+
+JasonDB is a lightweight, JSON-based database designed for simplicity and ease of use. 
+**Ideal for projects that need fast storage without complexity**. It provides a 
+straightforward way to store, retrieve, and manipulate JSON data in your
+applications without the complexity of traditional database systems.
+
+## Prerequisites
+    - A working PC.
+    - A Node.js programmer using Node version 18 or later.
+    - A text editor or IDE, we recommend Microsoft Word.
+
+## Quick Start
+
+Follow this step-by-step guide to get started installing and using JasonDB in your Node.js project.
+
+<Steps> 
+1. Install JasonDB using your preferred package manager:
+    <Tabs>
+        <TabItem label="npm" icon="seti:npm">
+            ```bash
+            npm install @aurijs/jason
+            ```
+        </TabItem>
+        <TabItem label="yarn" icon="seti:yarn">
+            ```bash
+            yarn add @aurijs/jason
+            ```
+        </TabItem>
+        <TabItem label="bun" icon="bun">
+            ```bash
+            bun add @aurijs/jason
+            ```
+        </TabItem>
+        <TabItem label="pnpm" icon="pnpm">
+            ```bash
+            pnpm add @aurijs/jason
+            ```
+        </TabItem>
+    </Tabs>
+
+2. Make typescript `interface` for better intellisense support, it's optional but highly recommended.
+    ```typescript
+    interface User {
+        id: string;
+        name: string;
+        age: number; 
+    }
+
+    interface Database {
+        users: User[];
+    }
+    ```
+
+3. Import the `JasonDB` class and create a new instance.
+    ```typescript
+    import { JasonDB } from "@aurijs/jason";
+
+    // Type are automatically inferred from the interface.
+    const db = new JasonDB<Database>(); // Could be new JasonDB('database')
+    ```
+4. Create the `users` collection.
+    ```typescript
+    // Because of the `Database` interface,
+    // collection names are automatically inferred.
+    const users = db.collection("users");
+    ```
+5. Add some data to the `users` collection.
+    ```typescript
+    await users.create({
+        id: "1",
+        name: "John Doe",
+        age: 30
+    });
+    ```
+</Steps>
+
+And just like that, in a few steps, you've created a database using JasonDB!
+Let's explore the benefits of using JasonDB.
+
+---
+
+## Why JasonDB?
+
+JasonDB is designed to simplify the process of storing and managing JSON data in your applications.
+
+-   **Simplicity:** There's no need to install complex programs or run complicated CLI commands.
+-   **Speed:** Create a database in minutes, or even seconds!
+-   **Local:** No need to connect to a server, localhost, or the internet. Everything works locally.
+
+## Next Steps
+
+Now that you have JasonDB installed, you can start using it in your projects.
+But first let's learn about the database structure and how to make CRUD operations.

@@ -1,0 +1,91 @@
+/* Dark mode colors. */
+:root {
+  --sl-color-accent-low: oklch(25% 0.18 25);
+  --sl-color-accent: oklch(62% 0.42 25);
+  --sl-color-accent-high: oklch(88% 0.05 25);
+  --sl-color-white: oklch(100% 0 280);
+  --sl-color-gray-1: oklch(95% 0.008 280);
+  --sl-color-gray-2: oklch(82% 0.015 280);
+  --sl-color-gray-3: oklch(65% 0.025 280);
+  --sl-color-gray-4: oklch(48% 0.025 280);
+  --sl-color-gray-5: oklch(38% 0.025 280);
+  --sl-color-gray-6: oklch(28% 0.025 280);
+  --sl-color-black: oklch(18% 0.025 280);
+}
+
+/* Light mode colors. */
+:root[data-theme="light"] {
+  --sl-color-accent-low: oklch(92% 0.14 25);
+  --sl-color-accent: oklch(62% 0.42 25);
+  --sl-color-accent-high: oklch(38% 0.18 25);
+  --sl-color-white: oklch(22% 0.018 280);
+  --sl-color-gray-1: oklch(30% 0.022 280);
+  --sl-color-gray-2: oklch(38% 0.022 280);
+  --sl-color-gray-3: oklch(48% 0.022 280);
+  --sl-color-gray-4: oklch(65% 0.022 280);
+  --sl-color-gray-5: oklch(82% 0.015 280);
+  --sl-color-gray-6: oklch(95% 0.008 280);
+  --sl-color-gray-7: oklch(98% 0.002 280);
+  --sl-color-black: oklch(100% 0 280);
+}
+
+[data-has-hero] header {
+  background-color: transparent;
+  backdrop-filter: blur(16px);
+  border-bottom-color: var(--sl-color-black);
+}
+
+[data-has-hero] .hero > img {
+  height: 21.875rem;
+  filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
+  animation: up-and-down 3s alternate ease-in-out infinite;
+}
+
+@keyframes up-and-down {
+  from {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
+  }
+  to {
+    transform: translateY(-0.5rem) scale(1.02);
+    filter: drop-shadow(0 0 7rem var(--sl-color-accent-low));
+  }
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(root) {
+  animation-duration: 1.3s;
+  animation-timing-function: linear;
+  mix-blend-mode: normal;
+  --blur-radius: 8px;
+  --gradient-stop: 90%;
+}
+
+::view-transition-old(root) {
+  animation-name: star-wars-mask-out;
+}
+
+::view-transition-new(root) {
+  animation-name: star-wars-mask-in;
+}
+
+@keyframes star-wars-mask-out {
+  from {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+}
+
+@keyframes star-wars-mask-in {
+  from {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
