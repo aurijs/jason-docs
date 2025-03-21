@@ -1,15 +1,28 @@
 // @ts-check
-import { defineConfig } from "astro/config";
-import starlight from "@astrojs/starlight";
-import viteCompression from "vite-plugin-compression";
-import vercel from "@astrojs/vercel";
 import partytown from "@astrojs/partytown";
+import starlight from "@astrojs/starlight";
+import vercel from "@astrojs/vercel";
+import {
+  remarkEndOfMarkdown,
+  viewTransitions,
+} from "astro-vtbot/starlight-view-transitions";
+import { defineConfig } from "astro/config";
+import starlightCoolerCredit from "starlight-cooler-credit";
+import starlightLlmsTxt from "starlight-llms-txt";
+import viteCompression from "vite-plugin-compression";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://jasondb.vercel.app/",
+  markdown: {
+    remarkPlugins: [remarkEndOfMarkdown],
+  },
   integrations: [
     starlight({
+      plugins: [starlightCoolerCredit(), viewTransitions(), starlightLlmsTxt()],
+      components: {
+        Hero: './src/components/Hero.astro'
+      },
       title: "JasonDB",
       lastUpdated: true,
       credits: true,
@@ -21,13 +34,6 @@ export default defineConfig({
       },
       favicon: "favicon.svg",
       head: [
-        {
-          tag: "meta",
-          attrs: {
-            name: "view-transition",
-            content: "same-origin",
-          },
-        },
         {
           tag: "script",
           attrs: {
@@ -64,6 +70,7 @@ export default defineConfig({
     partytown({
       config: {
         forward: ["dataLayer.push"],
+        debug: import.meta.env.DEV,
       },
     }),
   ],
@@ -72,22 +79,29 @@ export default defineConfig({
       viteCompression({
         algorithm: "brotliCompress",
         verbose: false,
-        threshold: 512,
+        threshold: 1024,
         compressionOptions: {
           level: 3,
         },
       }),
     ],
     build: {
-      minify: "terser",
       target: "esnext",
-      reportCompressedSize: false,
+      minify: "terser",
       terserOptions: {
         compress: {
           keep_infinity: true,
           pure_getters: true,
-          drop_console: true,
+          drop_console: import.meta.env.PROD,
         },
+        mangle: {
+          properties: true,
+          keep_fnames: false,
+        },
+        format: {
+          comments: false,
+        },
+        ecma: 2020,
       },
     },
   },
@@ -95,7 +109,7 @@ export default defineConfig({
     isr: true,
     imagesConfig: {
       sizes: [320, 640, 1280],
-      domains: [""],
+      domains: ["jasondb.vercel.app"],
     },
   }),
 });
