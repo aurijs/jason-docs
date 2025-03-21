@@ -2,10 +2,8 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import viteCompression from "vite-plugin-compression";
-import browserslist from "browserslist";
-import { browserslistToTargets } from "lightningcss";
-
 import vercel from "@astrojs/vercel";
+import partytown from "@astrojs/partytown";
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,6 +28,20 @@ export default defineConfig({
             content: "same-origin",
           },
         },
+        {
+          tag: "script",
+          attrs: {
+            async: true,
+            src: "https://www.googletagmanager.com/gtag/js?id=G-0S40CK3NKX",
+          },
+        },
+        {
+          tag: "script",
+          attrs: {
+            type: "text/partytown",
+          },
+          content: `function a(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],a("js",new Date),a("config","G-0S40CK3NKX");`,
+        },
       ],
       logo: {
         dark: "./src/assets/logo_dark.webp",
@@ -48,6 +60,11 @@ export default defineConfig({
           autogenerate: { directory: "guides" },
         },
       ],
+    }),
+    partytown({
+      config: {
+        forward: ["dataLayer.push"],
+      },
     }),
   ],
   vite: {
