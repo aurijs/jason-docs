@@ -35,57 +35,8 @@
   border-bottom-color: var(--sl-color-black);
 }
 
-[data-has-hero] .hero > img {
+[data-has-hero] .hero img {
   height: 21.875rem;
   filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
   animation: up-and-down 3s alternate ease-in-out infinite;
-}
-
-@keyframes up-and-down {
-  from {
-    transform: translateY(0) scale(1);
-    filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
-  }
-  to {
-    transform: translateY(-0.5rem) scale(1.02);
-    filter: drop-shadow(0 0 7rem var(--sl-color-accent-low));
-  }
-}
-
-@view-transition {
-  navigation: auto;
-}
-
-::view-transition-group(root) {
-  animation-duration: 1.3s;
-  animation-timing-function: linear;
-  mix-blend-mode: normal;
-  --blur-radius: 8px;
-  --gradient-stop: 90%;
-}
-
-::view-transition-old(root) {
-  animation-name: star-wars-mask-out;
-}
-
-::view-transition-new(root) {
-  animation-name: star-wars-mask-in;
-}
-
-@keyframes star-wars-mask-out {
-  from {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-  }
-}
-
-@keyframes star-wars-mask-in {
-  from {
-    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  }
 }
