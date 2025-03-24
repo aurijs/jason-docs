@@ -11,5 +11,33 @@ Everything starts with the `JasonDB` class.
 const db = new JasonDB();
 ```
 
-With this, you can now create a new database. By default it will
-automatically save data inside a `db` folder, see more [how it works](/guides/how-it-works).
+With this, you can now create a new database. By default, 
+if no argument is given it will automatically save data 
+inside a `db` folder, see more [how it works](/guides/how-it-works).
+
+It will also create the `db` folder at the root of your project.
+If you want to change the folder name, you can do it like this:
+
+```typescript
+const db = new JasonDB('deathstar');
+```
+
+If you want to change the folder path, you can do it like this:
+
+```typescript
+const db = const db = new JasonDB({
+    basename: 'republic-military-base',
+    path: './coruscant'
+});
+```
+
+Now your database will be saved inside the `coruscant` folder 
+with the name `republic-military-base`. By doing that way you 
+can have "multiple" databases in the same folder.
+
+---
+
+:::tip
+If you want to have multiple databases in the same folder, 
+you must give a different basename to each database.
+:::
