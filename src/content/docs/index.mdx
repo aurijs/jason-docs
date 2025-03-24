@@ -20,9 +20,10 @@ hero:
       variant: minimal
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
+import { CardGrid } from "@astrojs/starlight/components";
+import Card from '../../components/Card.astro'
 
-<CardGrid stagger>
+<CardGrid>
   <Card title="Simple" icon="seti:db">
     Easy to set up and use with a clean, intuitive API.
   </Card>
