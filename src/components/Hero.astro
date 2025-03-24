@@ -32,19 +32,18 @@ const img = hero?.image;
 <style>
   .hero {
     position: relative;
-    margin: -1.5rem calc(-1 * var(--sl-content-pad-x));
+    margin: clamp(-1rem, -2vh, -1.5rem) calc(-1 * var(--sl-content-pad-x)) 0;
   }
 
   .grid-bg {
-    --grid-size: 23px;
+    --grid-size: clamp(20px, 2vw, 23px);
     --grid-color: var(--sl-color-accent-high);
     --grid-opacity: 0.05;
-    --glow-size: 150px;
+    --glow-size: clamp(120px, 15vw, 150px);
     --glow-opacity: 0.02;
 
     z-index: -1;
     position: absolute;
-    content: "";
     inset: 0;
 
     background-image: linear-gradient(
@@ -55,7 +54,9 @@ const img = hero?.image;
       linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
     background-position: right calc(-1 * var(--grid-size));
     background-size: var(--grid-size) var(--grid-size);
-    animation: grid-animation 6s linear infinite;
+    animation:
+      grid-animation 6s linear infinite,
+      glow-pulse 6s ease-in-out infinite;
 
     &::before {
       content: "";
@@ -82,18 +83,19 @@ const img = hero?.image;
 
   .hero-content {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column-reverse;
+    max-width: min(36rem, 100%);
     padding: 3rem var(--sl-content-pad-x);
     text-align: center;
   }
 
   h1 {
-    font-size: var(--sl-text-5xl);
+    font-size: clamp(var(--sl-text-2xl), 5vw, var(--sl-text-6xl));
     line-height: var(--sl-line-height-headings);
     font-weight: 600;
     color: var(--sl-color-white);
   }
+
   .actions {
     flex-wrap: wrap;
     gap: 1rem 2rem;
@@ -105,14 +107,33 @@ const img = hero?.image;
     width: 100%;
   }
 
-  @media (min-width: 32rem) {
-    .hero-content {
-      max-width: 36rem;
-      padding-block: 6rem;
+  img {
+    max-width: 100%;
+    margin-inline: auto;
+    height: clamp(12rem, 24vw, 21.875rem);
+    filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
+  }
+
+  @media (width >= 32rem) {
+    :global([data-has-hero] .main-pane) {
+      --cell-size: clamp(2.5rem, 3vw, 3.5rem);
+      background:
+        radial-gradient(var(--sl-color-purple-low), transparent 40%) no-repeat -170vw -55vh /
+          250vw 250vh,
+        radial-gradient(closest-side, var(--sl-color-red-low), transparent)
+          no-repeat calc(100% + var(--cell-size) * 6)
+          calc(var(--cell-size) * -7) / calc(var(--cell-size) * 12)
+          calc(var(--cell-size) * 19);
     }
 
-    h1 {
-      font-size: var(--sl-text-6xl);
+    .hero-content {
+      flex-direction: row;
+      justify-content: space-between;
+      padding-block: clamp(4rem, 8vh, 6rem);
+    }
+
+    img {
+      margin-inline: 0;
     }
   }
 
@@ -126,35 +147,22 @@ const img = hero?.image;
     margin-inline: auto;
   }
 
-  @media (min-width: 78rem) {
-    :global([data-has-hero] .main-pane) {
-      /* Red gradient calculated on the basis of the face pile grid, but set here so it’s under the grid background image. */
-      --cell-size: 3.5rem;
-      background:
-        radial-gradient(var(--sl-color-purple-low), transparent 40%) no-repeat -170vw -55vh /
-          250vw 250vh,
-        radial-gradient(closest-side, var(--sl-color-red-low), transparent)
-          no-repeat calc(100% + var(--cell-size) * 6)
-          calc(var(--cell-size) * -7) / calc(var(--cell-size) * 12)
-          calc(var(--cell-size) * 19);
-    }
-
+  @media (width >= 78rem) {
     .hero {
       display: grid;
-    }
-    .hero > :global(*) {
-      /* Position all elements in the hero on top of each other in the same grid area. */
-      grid-area: 1 / 1 / -1 / -1;
+
+      > :global(*) {
+        grid-area: 1 / 1 / -1 / -1;
+      }
     }
 
     .hero-content {
-      width: 100%;
       text-align: start;
       align-self: center;
-    }
-    .hero-content > * {
-      /* Limit the content width so it doesn’t overlap with facepile elements. */
-      max-width: calc(100% - 29rem);
+
+      > * {
+        max-width: calc(100% - clamp(20rem, 30vw, 29rem));
+      }
     }
 
     .actions {
