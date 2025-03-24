@@ -34,9 +34,3 @@
   backdrop-filter: blur(16px);
   border-bottom-color: var(--sl-color-black);
 }
-
-[data-has-hero] .hero img {
-  height: 21.875rem;
-  filter: drop-shadow(0 0 5rem var(--sl-color-accent-low));
-  animation: up-and-down 3s alternate ease-in-out infinite;
-}
