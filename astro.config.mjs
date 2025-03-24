@@ -19,9 +19,9 @@ export default defineConfig({
   },
   integrations: [
     starlight({
-      plugins: [starlightCoolerCredit(), viewTransitions(), starlightLlmsTxt()],
+      plugins: [starlightCoolerCredit(), starlightLlmsTxt()],
       components: {
-        Hero: './src/components/Hero.astro'
+        Hero: './src/components/Hero.astro',
       },
       title: "JasonDB",
       lastUpdated: true,
